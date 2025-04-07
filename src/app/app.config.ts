@@ -4,8 +4,8 @@ import { provideZoneChangeDetection } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
-import { routes } from './app.routes'; // Asegúrate de que este archivo existe
-import { PaymentService } from './services/payment.service'; // Asegúrate de que la ruta esté bien
+import { routes } from './app.routes'; 
+import { PaymentService } from './services/payment.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
