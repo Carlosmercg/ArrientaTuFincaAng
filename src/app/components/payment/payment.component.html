@@ -1,0 +1,15 @@
+<h2>Procesar Pago</h2>
+
+<button (click)="realizarPago()">Realizar Pago</button>
+
+<!-- Mensaje de éxito -->
+<div *ngIf="respuestaPago" style="margin-top: 15px; color: green;">
+  Pago procesado exitosamente:
+  <pre>{{ respuestaPago | json }}</pre>
+</div>
+
+<!-- Mensaje de error -->
+<div *ngIf="errorPago" style="margin-top: 15px; color: red;">
+  Error al procesar el pago:
+  <pre>{{ errorPago | json }}</pre>
+</div>
