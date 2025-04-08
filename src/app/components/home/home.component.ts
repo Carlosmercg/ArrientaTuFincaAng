@@ -18,7 +18,7 @@ export class HomeComponent {
         name: 'Casa en las Colinas',
         city: 'Medellín',
         country: 'Colombia',
-        imageUrl: '../assets/logo.png',
+        imageUrl: 'assets/images/house.jpg',
         price: 250000000
       },
       {
@@ -27,7 +27,7 @@ export class HomeComponent {
         name: 'Apartamento Playa',
         city: 'Cartagena',
         country: 'Colombia',
-        imageUrl: '../../assets/images/images.jpg',
+        imageUrl: 'assets/images/house.jpg',
         price: 180000000
       },
       {
@@ -36,7 +36,7 @@ export class HomeComponent {
         name: 'Cabaña del Café',
         city: 'Armenia',
         country: 'Colombia',
-        imageUrl: 'assets/images/house3.jpg',
+        imageUrl: 'assets/images/house.jpg',
         price: 120000000
       },
       {
@@ -45,7 +45,7 @@ export class HomeComponent {
         name: 'Penthouse Ciudad',
         city: 'Bogotá',
         country: 'Colombia',
-        imageUrl: 'assets/images/house4.jpg',
+        imageUrl: 'assets/images/house.jpg',
         price: 350000000
       },
       {
@@ -54,7 +54,7 @@ export class HomeComponent {
         name: 'Finca La Pradera',
         city: 'Cali',
         country: 'Colombia',
-        imageUrl: 'assets/images/house5.jpg',
+        imageUrl: 'assets/images/house.jpg',
         price: 200000000
       }
     ];

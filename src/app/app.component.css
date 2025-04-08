@@ -10,3 +10,7 @@
   .content {
     padding: var(--content-padding);
   }
+  .brand-logo {
+    height: 70px;
+    margin: 10px;
+  }
