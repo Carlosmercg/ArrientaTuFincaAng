@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HousingLocationComponent } from '../housing-location/housing-location.component';
-import { HousingLocation } from '../../interfaces/housing-location';
+import { PropertyComponent } from '../property/property.component';
+import { Property } from '../../interfaces/property';
 
 @Component({
   standalone: true,
   selector: 'app-home',
-  imports: [HousingLocationComponent, CommonModule],
+  imports: [PropertyComponent, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-    housingLocations: HousingLocation[] = [
+    properties: Property[] = [
       {
         id: 1,
         description: 'Hermosa casa familiar con jardín',
@@ -19,7 +19,8 @@ export class HomeComponent {
         city: 'Medellín',
         country: 'Colombia',
         imageUrl: 'assets/images/house.jpg',
-        price: 250000000
+        price: 250000000,
+        score: 4.5
       },
       {
         id: 2,
@@ -28,7 +29,8 @@ export class HomeComponent {
         city: 'Cartagena',
         country: 'Colombia',
         imageUrl: 'assets/images/house.jpg',
-        price: 180000000
+        price: 180000000,
+        score: 4.5
       },
       {
         id: 3,
@@ -37,7 +39,8 @@ export class HomeComponent {
         city: 'Armenia',
         country: 'Colombia',
         imageUrl: 'assets/images/house.jpg',
-        price: 120000000
+        price: 120000000,
+        score: 4.5
       },
       {
         id: 4,
@@ -46,7 +49,8 @@ export class HomeComponent {
         city: 'Bogotá',
         country: 'Colombia',
         imageUrl: 'assets/images/house.jpg',
-        price: 350000000
+        price: 350000000,
+        score: 4.5
       },
       {
         id: 5,
@@ -55,7 +59,8 @@ export class HomeComponent {
         city: 'Cali',
         country: 'Colombia',
         imageUrl: 'assets/images/house.jpg',
-        price: 200000000
+        price: 200000000,
+        score: 4.5
       }
     ];
 }

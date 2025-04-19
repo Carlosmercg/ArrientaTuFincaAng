@@ -1,0 +1,45 @@
+.listing {
+    background: white;
+    padding-bottom: 30px; 
+  }
+  .listing-title {
+    color: black; 
+    padding: 10px 20px 0px 0px;
+  }
+  .listing-photo {
+    color: black; 
+    width: 100%;
+    border-radius: 10px;
+    justify-content: center;
+    aspect-ratio: 1/1;
+  }
+  .listing-location {
+    color: black; 
+    padding: 10px 20px 0px 0px;
+  }
+  .listing-description {
+    color: black; 
+    padding: 10px 20px 5px 0px;
+  }
+  .listing-score {
+    color: black; 
+    padding: 0px 0px 5px 0px;
+    font-weight: bold;
+  }
+  .listing-price {
+    color: black; 
+    padding: 0px 0px 0px 0px;
+    font-weight: bold; 
+    text-decoration: underline;
+  }
+  section.listing a {
+    color: black; 
+    padding-left: 0px;
+    text-decoration: none;
+    color: var(--primary-color);
+  }
+  
+  
+  .listing:hover {
+    transform: scale(1.02);
+  }

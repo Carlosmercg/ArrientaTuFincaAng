@@ -1,20 +1,12 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HomeComponent} from './components/home/home.component';
+import { PropertyComponent } from "./components/property/property.component";
 @Component({
   standalone: true,
   selector: 'app-root',
-  imports: [HomeComponent, CommonModule],
-  template: `
-    <main>
-      <header class="brand-name">
-        <img class="brand-logo" src="assets/images/logo.png" alt="logo" aria-hidden="true" />
-      </header>
-      <section class="content">
-        <app-home></app-home>
-      </section>
-    </main>
-  `,
+  imports: [HomeComponent, CommonModule, PropertyComponent],
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {

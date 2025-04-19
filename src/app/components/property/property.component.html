@@ -1,0 +1,15 @@
+<section class = "listing">
+    <a class="listing">
+        <img class="listing-photo" [src]="property.imageUrl" alt="listing photo of {{property.name}}" />
+        <h2 class="listing-title">{{property.name}}</h2>
+        <p class="listing-description">{{property.description}}</p>
+        <p class="listing-location">{{property.city}}, {{property.country}}</p>
+        <p class="listing-score">⭐ {{property.score}}</p>
+        <p class="listing-price">${{ property.price | formatPrice }}</p>
+    </a>
+</section>
+<script>
+    const elementoPrecio = document.getElementById("listing-price");
+    const numero = parseFloat(elementoPrecio.textContent);
+    elementoPrecio.textContent = numero.toLocaleString('es-ES');
+</script>

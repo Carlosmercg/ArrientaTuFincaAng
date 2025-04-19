@@ -1,4 +1,4 @@
-export interface HousingLocation {
+export interface Property {
     id: number; 
     description: string;
     name: string; 
@@ -6,4 +6,5 @@ export interface HousingLocation {
     country: string; 
     imageUrl: string; 
     price: number;
+    score: number;
 }
