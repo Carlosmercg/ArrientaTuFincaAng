@@ -3,7 +3,7 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px 20px;
   margin-top: 100px;
-  padding: 0 20px; /* Padding fijo a los lados */
+  padding: 0 80px; /* Padding fijo a los lados */
   justify-content: center;
 }
 

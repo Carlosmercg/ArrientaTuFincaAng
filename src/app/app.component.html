@@ -7,13 +7,35 @@
       <input type="text" placeholder="¿A dónde vas?">
       <button>Buscar</button>
     </div>
-    <a>
-      <div class="user-icon" title="Usuario">
+    <div class="user-menu-container">
+      <div class="user-icon" title="Usuario" (click)="toggleUserMenu()">
         👤
       </div>
-    </a>
+      <div class="user-menu" *ngIf="showUserMenu">
+        <div *ngIf="!isLoggedIn; else loggedInMenu">
+          <button class="login-button" (click)="openLogin()">Iniciar sesión/Registrarse</button>
+        </div>
+        <ng-template #loggedInMenu>
+          <div class="user-info">
+            <p>{{userName}}</p>
+            <p>{{userEmail}}</p>
+          </div>
+          <button class="user-buttons">Mi perfil</button>
+          <button class="user-buttons">Mis reservas</button>
+          <button class="user-buttons" (click)="logout()">Cerrar sesión</button>
+        </ng-template>
+      </div>
+    </div>
   </header>
-  <section>
-    <app-home></app-home>
+  <section class ="listing-padding">
+    <router-outlet></router-outlet>
   </section>
 </main>
+
+<!-- Modal para login/registro -->
+<app-loginsignin class="login-screen" *ngIf="showLoginModal" 
+           [isLoginMode]="isLoginMode"
+           (close)="closeLoginModal()"
+           (closeModal)="handleCloseModal()"
+           (loginSuccess)="handleLoginSuccess($event)">
+</app-loginsignin>
