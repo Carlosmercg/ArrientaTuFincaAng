@@ -4,9 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { PropertyService } from '../../services/property.service';
 import { FormatPricePipe } from '../../pipes/format-price.pipe';
 import { Property } from '../../interfaces/property';
+import { StarRatingComponent } from "../star-rating/star-rating.component";
 @Component({
   selector: 'app-property-detail',
-  imports: [FormatPricePipe, CommonModule],
+  imports: [FormatPricePipe, CommonModule, StarRatingComponent],
   templateUrl: './property-detail.component.html',
   styleUrl: './property-detail.component.css'
 })
@@ -25,4 +26,10 @@ export class PropertyDetailComponent implements OnInit {
       this.property = this.propertyService.getPropertyById(propertyId);
     }
   }
+  onRatingChange(newRating: number): void {
+    this.property.score = newRating;
+    console.log('Nueva puntuación:', this.property.puntuacion);
+    // Aquí puedes enviar la nueva puntuación al servidor si es necesario
+  }
+  
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PropertyComponent } from '../property/property.component';
 import { Property } from '../../interfaces/property';
 
+
 @Component({
   standalone: true,
   selector: 'app-home',

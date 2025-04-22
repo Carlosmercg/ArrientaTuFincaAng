@@ -17,3 +17,18 @@
     <button>Reservar</button>
   </div>
 </div>
+<div class ="property-comments">
+  <h2>Comentar</h2>
+  <textarea placeholder="Escribe tu comentario aquí" class="comments-input"></textarea>
+  <br>
+  <app-star-rating [maxRating]="5" [rating]="property.score" (ratingChange)=" ($event)"></app-star-rating>
+  <br>  
+  <button>Comentar</button>
+  <h2>Comentarios</h2>
+  <div class="comments-container">
+    <p>Comentario 1</p>
+    <p>Comentario 2</p>
+    <p>Comentario 3</p>
+  </div>
+
+</div>

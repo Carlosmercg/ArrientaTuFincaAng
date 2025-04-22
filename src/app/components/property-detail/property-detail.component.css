@@ -60,3 +60,32 @@ button:hover {
   padding-bottom: 20px; /* Espacio para el footer */
   padding-left: 20%;
 }
+.property-comments {
+  width: 80vw;
+
+  padding: 5% 20%;
+}
+.comments-input {
+  width: 70vw;
+  height: 100px;
+}
+.rating {
+  display: inline-flex; /* Para que las estrellas estén en línea horizontalmente */
+  direction: rtl; /* Invierte el orden para que la última estrella seleccionada se vea llena */
+}
+
+.star {
+  font-size: 2em; /* Tamaño de las estrellas */
+  color: #ccc; /* Color de las estrellas no seleccionadas */
+  cursor: pointer; /* Indica que son interactuables */
+}
+
+.star:hover,
+.star.active {
+  color: gold; /* Color de las estrellas seleccionadas o al pasar el ratón */
+}
+
+/* Opcional: Estilo para cuando se ha puntuado */
+.rating.rated .star {
+  cursor: default; /* Deshabilitar el cursor pointer después de la puntuación */
+}
