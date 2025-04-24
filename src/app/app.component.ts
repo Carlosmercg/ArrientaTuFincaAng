@@ -1,56 +1,33 @@
-import {Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {LoginsigninComponent} from './components/loginsignin/loginsignin.component';
-import { RouterModule } from '@angular/router';
-import { provideHttpClient, withFetch } from '@angular/common/http';
-import { CartComponent } from "./components/cart/cart.component"; 
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CommonModule, JsonPipe } from '@angular/common';
 
 @Component({
-  standalone: true,
   selector: 'app-root',
-  imports: [CommonModule, LoginsigninComponent, RouterModule, CartComponent],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  standalone: true,
+  imports: [CommonModule, HttpClientModule, JsonPipe],
+  template: `
+    <h1>Estado de conexión:</h1>
+    <p>{{ connectionStatus }}</p>
+    <pre>{{ apiResponse | json }}</pre>
+  `,
 })
-export class AppComponent {
-  title = 'homes';
-  showUserMenu = false;
-  isLoggedIn = true; // Cambiar esto según el estado real de autenticación
-  showLoginModal: boolean = false;
-  isLoginMode = true; // true para login, false para registro
-  
-  // Datos del usuario (simulados)
-  userName = 'Nombre Usuario';
-  userEmail = 'usuario@example.com';
+export class AppComponent implements OnInit {
+  connectionStatus = "Probando conexión...";
+  apiResponse: any;
 
-  toggleUserMenu() {
-    this.showUserMenu = !this.showUserMenu;
-  }
-  openLogin() {
-    this.isLoginMode = true;
-    this.showLoginModal = true;
-    this.showUserMenu = false;
-  }
+  constructor(private http: HttpClient) {}
 
-  closeLoginModal() {
-    this.showLoginModal = false;
-  }
-  handleCloseModal() {
-    this.showLoginModal = false;
-  }
-  handleLoginSuccess(userData: any) {
-    this.isLoggedIn = true;
-    this.userName = userData.name;
-    this.userEmail = userData.email;
-    this.closeLoginModal();
-  }
-
-  logout() {
-    this.isLoggedIn = false;
-    this.showUserMenu = false;
-    // Aquí también deberías limpiar cualquier dato de sesión
-  }
-  openCart() {
-    console.log('Abriendo el carro');
+  ngOnInit() {
+    this.http.get('http://localhost:8080/api/properties/search').subscribe({
+      next: (response) => {
+        this.connectionStatus = "Conexión exitosa con el backend";
+        this.apiResponse = response;
+      },
+      error: (error) => {
+        this.connectionStatus = "Error de conexión con el backend";
+        this.apiResponse = error;
+      }
+    });
   }
 }
