@@ -2,13 +2,11 @@ import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LoginsigninComponent} from './components/loginsignin/loginsignin.component';
 import { RouterModule } from '@angular/router';
-import { provideHttpClient, withFetch } from '@angular/common/http';
-import { CartComponent } from "./components/cart/cart.component"; 
 
 @Component({
   standalone: true,
   selector: 'app-root',
-  imports: [CommonModule, LoginsigninComponent, RouterModule, CartComponent],
+  imports: [CommonModule, LoginsigninComponent, RouterModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
@@ -49,8 +47,5 @@ export class AppComponent {
     this.isLoggedIn = false;
     this.showUserMenu = false;
     // Aquí también deberías limpiar cualquier dato de sesión
-  }
-  openCart() {
-    console.log('Abriendo el carro');
   }
 }

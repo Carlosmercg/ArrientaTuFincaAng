@@ -14,7 +14,7 @@
     <p><strong>Calificación:</strong> ⭐ {{ property.score}}</p>
     <p><strong>Habitaciones:</strong> {{ property.bedrooms }}</p>
     <p><strong>Baños:</strong> {{ property.bathrooms }}</p>
-    <button>Reservar</button>
+    <button (click)="onReserve()" class="btn btn-primary">Reservar ahora</button>
   </div>
 </div>
 <div class ="property-comments">

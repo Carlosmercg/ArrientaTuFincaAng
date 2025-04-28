@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router'; 
 import { PropertyService } from '../../services/property.service';
 import { FormatPricePipe } from '../../pipes/format-price.pipe';
-import { Property } from '../../interfaces/property';
 import { StarRatingComponent } from "../star-rating/star-rating.component";
 @Component({
   selector: 'app-property-detail',
@@ -13,10 +12,11 @@ import { StarRatingComponent } from "../star-rating/star-rating.component";
 })
 export class PropertyDetailComponent implements OnInit {
   property: any= null;
-
+  
   constructor(
     private route: ActivatedRoute,
-    private propertyService: PropertyService
+    private propertyService: PropertyService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -30,6 +30,12 @@ export class PropertyDetailComponent implements OnInit {
     this.property.score = newRating;
     console.log('Nueva puntuación:', this.property.puntuacion);
     // Aquí puedes enviar la nueva puntuación al servidor si es necesario
+  }
+  onReserve(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.router.navigate(['/checkout/propiedad', id]);
+    }
   }
   
 }

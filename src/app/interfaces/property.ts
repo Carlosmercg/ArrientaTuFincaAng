@@ -7,4 +7,6 @@ export interface Property {
     imageUrl: string; 
     price: number;
     score: number;
+    // ratingList: number[];
+    // commentList: string[];
 }
