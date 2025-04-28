@@ -1,0 +1,122 @@
+.my-bookings-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px;
+}
+.my-bookings-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+    text-align: center;
+    position: relative;
+  }
+  
+  .my-bookings-container h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #3498db;
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+  }
+  
+  /* Lista de reservas */
+  .booking-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  /* Item de reserva individual */
+  .booking-item {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 4px solid #3498db;
+  }
+  
+  .booking-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .booking-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    font-weight: 600;
+  }
+  
+  .booking-item p {
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+  }
+  
+  /* Botón de cancelar */
+  .booking-item button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+  
+  .booking-item button:hover {
+    background-color: #c0392b;
+  }
+  
+  /* Mensaje cuando no hay reservas */
+  .no-bookings-template {
+    text-align: center;
+    padding: 3rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin-top: 2rem;
+  }
+  
+  .no-bookings-template p {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+  }
+  
+  /* Efectos para pantallas pequeñas */
+  @media (max-width: 768px) {
+    .my-bookings-container {
+      padding: 1rem;
+    }
+    
+    .booking-list {
+      grid-template-columns: 1fr;
+    }
+    
+    .booking-item {
+      padding: 1.2rem;
+    }
+  }
+  
+  /* Animación para cuando se carga la lista */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .booking-item {
+    animation: fadeIn 0.5s ease forwards;
+  }
+  
+  .booking-item:nth-child(1) { animation-delay: 0.1s; }
+  .booking-item:nth-child(2) { animation-delay: 0.2s; }
+  .booking-item:nth-child(3) { animation-delay: 0.3s; }
+  .booking-item:nth-child(4) { animation-delay: 0.4s; }

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LoginsigninComponent} from './components/loginsignin/loginsignin.component';
-import { RouterModule } from '@angular/router';
+import { RouterModule , Router} from '@angular/router';
 
 @Component({
   standalone: true,
@@ -20,7 +20,7 @@ export class AppComponent {
   // Datos del usuario (simulados)
   userName = 'Nombre Usuario';
   userEmail = 'usuario@example.com';
-
+  constructor(private router: Router) {}
   toggleUserMenu() {
     this.showUserMenu = !this.showUserMenu;
   }
@@ -48,4 +48,11 @@ export class AppComponent {
     this.showUserMenu = false;
     // Aquí también deberías limpiar cualquier dato de sesión
   }
+  goToHome() {
+    this.router.navigate(['/']);
+  }
+  goToMyBookings() {
+    this.router.navigate(['/mis-reservas']);
+  }
+
 }
