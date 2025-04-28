@@ -1,0 +1,16 @@
+<p>my-bookings works!</p>
+<div class="my-bookings-container">
+  <h2>Mis Reservas</h2>
+  <div class="booking-list" *ngIf="bookings && bookings.length > 0; else noBookingsTemplate">
+    <div class="booking-item" *ngFor="let booking of bookings">
+      <h3>{{ booking.id }}</h3>
+      <p>Fecha: {{ booking.propertyId }}</p>
+      <p>Hora: {{ booking.startDate }}</p>
+      <p>Ubicación: {{ booking.endDate }}</p>
+      <button (click)="cancelBooking(booking.id)">Cancelar Reserva</button>
+    </div>
+  </div>
+  <ng-template #noBookingsTemplate>
+    <p>No tienes reservas en este momento.</p>
+  </ng-template>
+</div>

@@ -1,0 +1,34 @@
+<h1 class="title-padding">{{property.name}}</h1>
+<div class="property-detail-container">
+  <div class="property-images">
+    <img class="listing-photo" [src]="property.imageUrl" [alt]="'Foto de ' + property.name" loading="lazy">
+  </div>
+  
+  <div class="property-info">
+    
+    <p><strong>Descripción:</strong> {{ property.description }}</p>
+    <p><strong>Ubicación:</strong> {{ property.name }}</p>
+    <p><strong>País:</strong> {{ property.country }}</p>
+    <p><strong>Ciudad:</strong> {{ property.city }}</p>
+    <p><strong>Precio:</strong> {{ property.price | formatPrice }}</p>
+    <p><strong>Calificación:</strong> ⭐ {{ property.score}}</p>
+    <p><strong>Habitaciones:</strong> {{ property.bedrooms }}</p>
+    <p><strong>Baños:</strong> {{ property.bathrooms }}</p>
+    <button (click)="onReserve()" class="btn btn-primary">Reservar ahora</button>
+  </div>
+</div>
+<div class ="property-comments">
+  <h2>Comentar</h2>
+  <textarea placeholder="Escribe tu comentario aquí" class="comments-input"></textarea>
+  <br>
+  <app-star-rating [maxRating]="5" [rating]="property.score" (ratingChange)=" ($event)"></app-star-rating>
+  <br>  
+  <button>Comentar</button>
+  <h2>Comentarios</h2>
+  <div class="comments-container">
+    <p>Comentario 1</p>
+    <p>Comentario 2</p>
+    <p>Comentario 3</p>
+  </div>
+
+</div>
