@@ -1,4 +1,4 @@
-import { PropertyState } from '../enums/Propertystate';
+import { PropertyState } from '../enums/PropertyState';
 export class propertyDTO{
     constructor(
        public id: number,

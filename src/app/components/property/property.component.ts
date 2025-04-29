@@ -4,6 +4,7 @@ import { Property } from '../../interfaces/property';
 import { FormatPricePipe } from '../../pipes/format-price.pipe';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import { propertyDTO } from '../../DTO/propertyDTO';
 @Component({
   standalone: true,
   selector: 'app-property',
@@ -12,7 +13,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './property.component.css'
 })
 export class PropertyComponent {
-  @Input() property!: Property;
+  @Input() property!: propertyDTO;
 
   constructor(private router: Router) {}
   viewPropertyDetails() {

@@ -25,7 +25,10 @@ export class CartComponent {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       const propertyId = parseInt(id, 10);
-      this.property = this.propertyService.getPropertyById(propertyId);
+      this.propertyService.getPropertyById(propertyId)
+      .subscribe(
+        property => this.property = property
+      );
     }
   }
   onPaymentSuccess(): void {
