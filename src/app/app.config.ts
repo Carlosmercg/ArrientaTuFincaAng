@@ -1,6 +1,6 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withFetch } from '@angular/common/http'; // Importación clave
+import { HttpClient, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http'; // Importación clave
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -10,6 +10,7 @@ export const appConfig: ApplicationConfig = {
       withFetch(), // Habilita Fetch API (opcional pero recomendado)
       // withInterceptors([authInterceptor]) // Si necesitas interceptores
     ),
+    importProvidersFrom(HttpClientModule)
     // Otros providers...
   ]
 };

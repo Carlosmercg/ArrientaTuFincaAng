@@ -2,8 +2,8 @@
     <a class="listing"
        [routerLink]="['/propiedad', property.id]"
        target="_blank">
-        <img class="listing-photo" [src]="property.imageUrl" [alt]="'Foto de ' + property.name" loading="lazy">
-        <h2 class="listing-title">{{property.name}}</h2>
+        <img class="listing-photo" [src]="property.imageUrl" [alt]="'Foto de ' + property.title" loading="lazy">
+        <h2 class="listing-title">{{property.title}}</h2>
         <p class="listing-description">{{property.description}}</p>
         <p class="listing-location">{{property.city}}, {{property.country}}</p>
         <p class="listing-score">⭐ {{property.score}}</p>

@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { propertyDTO } from '../DTO/propertyDTO';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PropertyService {
-  private apiUrl = 'api/'; // Ajusta esta URL a tu API real
+  private apiUrl = 'http://localhost:8080/api/properties/search'; // Ajusta esta URL a tu API real
 
   constructor(private http: HttpClient) { }
 
@@ -65,5 +67,9 @@ export class PropertyService {
           score: 4.5
         }
       ];
+
+      listarpropiedades(): Observable<propertyDTO[]> {
+       return this.http.get<propertyDTO[]>(this.apiUrl);
+      }
 }
 
