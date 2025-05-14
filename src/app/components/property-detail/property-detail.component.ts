@@ -4,19 +4,29 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PropertyService } from '../../services/property.service';
 import { FormatPricePipe } from '../../pipes/format-price.pipe';
 import { StarRatingComponent } from "../star-rating/star-rating.component";
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-property-detail',
-  imports: [FormatPricePipe, CommonModule, StarRatingComponent],
+  imports: [FormsModule, FormatPricePipe, CommonModule, StarRatingComponent, MatDatepickerModule, MatNativeDateModule, MatInputModule, MatFormFieldModule],
+  standalone: true,
   templateUrl: './property-detail.component.html',
   styleUrl: './property-detail.component.css'
 })
 export class PropertyDetailComponent implements OnInit {
   property: any= null;
+  checkInDate: Date | null = null;
+  checkOutDate: Date | null = null;
   
   constructor(
     private route: ActivatedRoute,
     private propertyService: PropertyService,
     private router: Router
+
   ) {}
 
   ngOnInit() {
@@ -36,6 +46,11 @@ export class PropertyDetailComponent implements OnInit {
     if (id) {
       this.router.navigate(['/checkout/propiedad', id]);
     }
+  }
+  calculateAverageRating(ratings: number[]): number {
+    if (!ratings || ratings.length === 0) return 0;
+    const sum = ratings.reduce((acc, rating) => acc + rating, 0);
+    return parseFloat((sum / ratings.length).toFixed(1));
   }
   
 }

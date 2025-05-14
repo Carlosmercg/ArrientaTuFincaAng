@@ -10,10 +10,25 @@
     <p><strong>Ubicación:</strong> {{ property.name }}</p>
     <p><strong>País:</strong> {{ property.country }}</p>
     <p><strong>Ciudad:</strong> {{ property.city }}</p>
-    <p><strong>Precio:</strong> {{ property.price | formatPrice }}</p>
-    <p><strong>Calificación:</strong> ⭐ {{ property.score}}</p>
+    <p><strong>Precio por dia:</strong> {{ property.pricePerDay | formatPrice }}</p>
+    <p><strong>Calificación:</strong> ⭐ {{ calculateAverageRating(property.rating)}}</p>
     <p><strong>Habitaciones:</strong> {{ property.bedrooms }}</p>
     <p><strong>Baños:</strong> {{ property.bathrooms }}</p>
+    <div class="date-pickers">
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha de llegada</mat-label>
+        <input matInput [matDatepicker]="checkInPicker" [(ngModel)]="checkInDate">
+        <mat-datepicker-toggle matSuffix [for]="checkInPicker"></mat-datepicker-toggle>
+        <mat-datepicker #checkInPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha de salida</mat-label>
+        <input matInput [matDatepicker]="checkOutPicker" [(ngModel)]="checkOutDate" [min]="checkInDate">
+        <mat-datepicker-toggle matSuffix [for]="checkOutPicker"></mat-datepicker-toggle>
+        <mat-datepicker #checkOutPicker></mat-datepicker>
+      </mat-form-field>
+    </div>
     <button (click)="onReserve()" class="btn btn-primary">Reservar ahora</button>
   </div>
 </div>

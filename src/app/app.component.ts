@@ -2,11 +2,25 @@ import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LoginsigninComponent} from './components/loginsignin/loginsignin.component';
 import { RouterModule , Router} from '@angular/router';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   standalone: true,
   selector: 'app-root',
-  imports: [CommonModule, LoginsigninComponent, RouterModule],
+  imports: [FormsModule, 
+    CommonModule, 
+    LoginsigninComponent, 
+    RouterModule, 
+    MatDatepickerModule, 
+    MatNativeDateModule, 
+    MatInputModule, 
+    MatFormFieldModule, 
+    BrowserAnimationsModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })

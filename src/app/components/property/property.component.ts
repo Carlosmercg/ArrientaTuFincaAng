@@ -18,5 +18,11 @@ export class PropertyComponent {
   viewPropertyDetails() {
     this.router.navigate(['/propiedad', this.property.id]);
   }
+  
+  calculateAverageRating(ratings: number[]): number {
+    if (ratings.length === 0) return 0;
+    const sum = ratings.reduce((acc, rating) => acc + rating, 0);
+    return parseFloat((sum / ratings.length).toFixed(1));
+  }
 
 }

@@ -6,7 +6,7 @@
         <h2 class="listing-title">{{property.name}}</h2>
         <p class="listing-description">{{property.description}}</p>
         <p class="listing-location">{{property.city}}, {{property.country}}</p>
-        <p class="listing-score">⭐ {{property.score}}</p>
-        <p class="listing-price">${{ property.price | formatPrice }}</p>
+        <p class="listing-score">⭐ {{calculateAverageRating(property.rating)}}</p>
+        <p class="listing-price">${{ property.pricePerDay | formatPrice }}</p>
     </a>
 </section>
