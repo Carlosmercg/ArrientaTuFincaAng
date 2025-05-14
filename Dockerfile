@@ -1,39 +1,40 @@
-FROM node:18.19.0 AS builder
+# Etapa de construcción
+FROM node:18.19.0-alpine AS builder
 
-# Instalar nvm y Node.js
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash && \
-    && . ~/.nvm/nvm.sh \
-    && nvm install 18.19.0 \
-    && nvm use 18.19.0 \
-    && nvm alias default 18.19.0 \
-    && node -v \
-    && npm -v
-# Añadir el directorio de nvm al PATH para que este disponible en futuras etapas de run
-ENV NVM_DIR=/root/.nvm
-ENV NODE_VERSION=18.19.0
-ENV NVM_BIN=$NVM_DIR/versions/node/v$NODE_VERSION/bin
-ENV PATH=$NVM_BIN:$PATH
-
-# Elstablecer el directorio de trabajo
 WORKDIR /app
+COPY package*.json ./
+RUN npm install --legacy-peer-deps
+COPY . .
+RUN npm run build -- --configuration production
 
-# Copiar los archivos de configuración de la aplicación
-COPY ./ .
+# Etapa de producción
+FROM nginx:1.25-alpine
 
-# Instalar las dependencias de la aplicación y compilarla
-RUN npm install --legacy-peer-deps && \
-    npm install -g @angular/cli && \
-    ng build
+# Configuración Nginx directa en el Dockerfile
+COPY <<EOF /etc/nginx/conf.d/default.conf
+server {
+    listen 80;
+    server_name localhost;
+    
+    root /usr/share/nginx/html;
+    index index.html;
 
-FROM httpd:2.4.
+    location / {
+        try_files \$uri \$uri/ /index.html;
+    }
 
-COPY ./k8s/my-httpd.conf /usr/local/apache2/conf/httpd.conf
-COPY ./k8s/.htaccess /usr/local/apache2/htdocs
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ {
+        expires 1y;
+        add_header Cache-Control "public, no-transform";
+    }
 
-COPY --from=builder /app/dist/adminpro /usr/local/apache2/htdocs
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Content-Type-Options "nosniff";
+    add_header X-XSS-Protection "1; mode=block";
+}
+EOF
 
-# Copiar los archivos de la aplicación construida al directorio de trabajo
-
+COPY --from=builder /app/dist/arrienta-tu-finca-ang /usr/share/nginx/html
 
 EXPOSE 80
-CMD ["httpd", "-D", "FOREGROUND"]
+CMD ["nginx", "-g", "daemon off;"]

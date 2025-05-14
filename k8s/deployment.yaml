@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arrienta-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: arrienta-frontend
+  template:
+    metadata:
+      labels:
+        app: arrienta-frontend
+    spec:
+      containers:
+      - name: arrienta-frontend
+        image: localhost:32000/arrienta-frontend:latest
+        imagePullPolicy: Always  # Importante para desarrollo
+        ports:
+        - containerPort: 80
