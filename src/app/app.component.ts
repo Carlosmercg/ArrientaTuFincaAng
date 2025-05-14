@@ -7,7 +7,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   standalone: true,
@@ -19,8 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatDatepickerModule, 
     MatNativeDateModule, 
     MatInputModule, 
-    MatFormFieldModule, 
-    BrowserAnimationsModule],
+    MatFormFieldModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
