@@ -7,6 +7,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import { PropertyService } from './services/property.service';
+import { Property } from './interfaces/property';
 
 @Component({
   standalone: true,
@@ -28,11 +30,19 @@ export class AppComponent {
   isLoggedIn = true; // Cambiar esto según el estado real de autenticación
   showLoginModal: boolean = false;
   isLoginMode = true; // true para login, false para registro
+  searchQuery: string = '';
+  selectedCategory: string = 'title';
   
+  categories = [
+    { value: 'title', label: 'Por título' },
+    { value: 'city', label: 'Por ciudad' },
+    { value: 'country', label: 'Por país' },
+    { value: 'description', label: 'Por descripción' }
+  ];
   // Datos del usuario (simulados)
   userName = 'Nombre Usuario';
   userEmail = 'usuario@example.com';
-  constructor(private router: Router) {}
+  constructor(private router: Router, private propertyService: PropertyService) {}
   toggleUserMenu() {
     this.showUserMenu = !this.showUserMenu;
   }
@@ -66,5 +76,15 @@ export class AppComponent {
   goToMyBookings() {
     this.router.navigate(['/mis-reservas']);
   }
-
+  
+  searchProperties() {
+    if (this.searchQuery.trim() || this.selectedCategory) {
+      this.propertyService.updateFilteredProperties(this.selectedCategory, this.searchQuery);
+      this.router.navigate(['/']);
+    } else {
+      this.propertyService.resetFilters();
+      this.router.navigate(['/']);
+    }
+  }
+  
 }

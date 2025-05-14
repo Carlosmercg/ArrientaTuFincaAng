@@ -11,8 +11,14 @@ import { Property } from '../../interfaces/property';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-    properties: Property[] = [];
-    constructor(private propertyService: PropertyService) {
-        this.properties= this.propertyService.getProperties();
-    }
+  properties: Property[] = [];
+  
+  constructor(private propertyService: PropertyService) {
+    this.propertyService.currentProperties.subscribe(props => {
+      this.properties = props;
+    });
+    
+    // Carga inicial
+    this.propertyService.resetFilters();
+  }
 }

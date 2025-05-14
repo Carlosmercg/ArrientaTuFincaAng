@@ -21,6 +21,7 @@ export class PropertyDetailComponent implements OnInit {
   property: any= null;
   checkInDate: Date | null = null;
   checkOutDate: Date | null = null;
+  today = new Date();
   
   constructor(
     private route: ActivatedRoute,

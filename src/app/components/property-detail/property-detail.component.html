@@ -17,7 +17,7 @@
     <div class="date-pickers">
       <mat-form-field appearance="fill">
         <mat-label>Fecha de llegada</mat-label>
-        <input matInput [matDatepicker]="checkInPicker" [(ngModel)]="checkInDate">
+        <input matInput [matDatepicker]="checkInPicker" [(ngModel)]="checkInDate" [min]="today">
         <mat-datepicker-toggle matSuffix [for]="checkInPicker"></mat-datepicker-toggle>
         <mat-datepicker #checkInPicker></mat-datepicker>
       </mat-form-field>
@@ -41,9 +41,7 @@
   <button>Comentar</button>
   <h2>Comentarios</h2>
   <div class="comments-container">
-    <p>Comentario 1</p>
-    <p>Comentario 2</p>
-    <p>Comentario 3</p>
+    <p>Aún no hay comentarios para esta publicación</p>
   </div>
 
 </div>
