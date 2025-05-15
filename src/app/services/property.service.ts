@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { propertyDTO } from '../DTO/propertyDTO';
+import { Property } from '../interfaces/property';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PropertyService {
   private apiUrl = 'http://localhost:8080/api/properties/';
-  private allProperties: propertyDTO[] = [];
-  private propertiesSource = new BehaviorSubject<propertyDTO[]>([]);
+  private allProperties: Property[] = [];
+  private propertiesSource = new BehaviorSubject<Property[]>([]);
   currentProperties = this.propertiesSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
   /** Obtiene todas las propiedades desde la API y actualiza el estado interno */
-  listarpropiedades(): Observable<propertyDTO[]> {
-    return this.http.get<propertyDTO[]>(this.apiUrl + 'search').pipe(
+  listarpropiedades(): Observable<Property[]> {
+    return this.http.get<Property[]>(this.apiUrl + 'search').pipe(
       tap(data => {
         this.allProperties = data;
         this.propertiesSource.next(data);
@@ -25,8 +25,8 @@ export class PropertyService {
   }
 
   /** Obtiene una propiedad individual desde la API por ID */
-  getPropertyById(id: number): Observable<propertyDTO> {
-    return this.http.get<propertyDTO>(this.apiUrl + id);
+  getPropertyById(id: number): Observable<Property> {
+    return this.http.get<Property>(this.apiUrl + id);
   }
 
   /** Normaliza texto para búsqueda */
@@ -37,7 +37,7 @@ export class PropertyService {
   }
 
   /** Filtro local de propiedades ya cargadas */
-  filterProperties(category: string, searchQuery: string): propertyDTO[] {
+  filterProperties(category: string, searchQuery: string): Property[] {
     if (!searchQuery || !category) {
       return this.allProperties;
     }
@@ -48,7 +48,7 @@ export class PropertyService {
       switch (category.toLowerCase()) {
         case 'title':
         case 'titulos':
-          return this.normalizeText(p.name).includes(normalizedSearch);
+          return this.normalizeText(p.title).includes(normalizedSearch);
         case 'city':
         case 'ciudades':
           return this.normalizeText(p.city).includes(normalizedSearch);
@@ -60,7 +60,7 @@ export class PropertyService {
           return this.normalizeText(p.description).includes(normalizedSearch);
         default:
           // búsqueda en todos los campos
-          return this.normalizeText(p.name).includes(normalizedSearch) ||
+          return this.normalizeText(p.title).includes(normalizedSearch) ||
             this.normalizeText(p.city).includes(normalizedSearch) ||
             this.normalizeText(p.country).includes(normalizedSearch) ||
             this.normalizeText(p.description).includes(normalizedSearch);
