@@ -9,8 +9,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
-
 import { Property } from '../../interfaces/property';
+
 @Component({
   selector: 'app-property-detail',
   imports: [FormsModule, FormatPricePipe, CommonModule, StarRatingComponent, MatDatepickerModule, MatNativeDateModule, MatInputModule, MatFormFieldModule],
@@ -22,7 +22,7 @@ export class PropertyDetailComponent implements OnInit {
   checkInDate: Date | null = null;
   checkOutDate: Date | null = null;
   today = new Date();
-  property!: Property;
+   property: any= null;
   
   constructor(
     private route: ActivatedRoute,
