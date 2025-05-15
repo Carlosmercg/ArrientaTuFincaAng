@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PropertyComponent } from '../property/property.component';
-import { Property } from '../../interfaces/property';
 import { PropertyService } from '../../services/property.service';
-import { propertyDTO } from '../../DTO/propertyDTO';
+import { Property } from '../../interfaces/property';
 
 
 @Component({
@@ -14,7 +13,7 @@ import { propertyDTO } from '../../DTO/propertyDTO';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  propiedades : propertyDTO[] = [];
+  propiedades : Property[] = [];
    constructor(
     private propertyService : PropertyService
    ) {} 

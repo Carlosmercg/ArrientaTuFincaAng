@@ -5,8 +5,8 @@ export interface Property {
     city: string; 
     country: string; 
     imageUrl: string; 
-    price: number;
-    score: number;
-    // ratingList: number[];
-    // commentList: string[];
+    pricePerDay: number;
+    bathrooms: number;
+    bedrooms: number;
+    rating: number[];
 }
