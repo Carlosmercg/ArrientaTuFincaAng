@@ -1,29 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PropertyComponent } from '../property/property.component';
 import { PropertyService } from '../../services/property.service';
 import { Property } from '../../interfaces/property';
-
 
 @Component({
   standalone: true,
   selector: 'app-home',
   imports: [PropertyComponent, CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
-  propiedades : Property[] = [];
-   constructor(
-    private propertyService : PropertyService
-   ) {} 
+export class HomeComponent implements OnInit {
+  propiedades: Property[] = [];
 
-   ngOnInit(): void {
+  constructor(private propertyService: PropertyService) {}
 
-    this.propertyService.listarpropiedades()
-    .subscribe(
-      listaPropiedades => this.propiedades = listaPropiedades
-    );
-    
-   }
+  ngOnInit(): void {
+    this.propertyService.listarpropiedades().subscribe();
+
+    this.propertyService.currentProperties.subscribe(lista => {
+      console.log('Propiedades recibidas en el componente:', lista); // Debug
+      this.propiedades = lista;
+    });
+  }
 }

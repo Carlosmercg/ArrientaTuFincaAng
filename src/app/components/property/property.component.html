@@ -1,12 +1,30 @@
-<section class="listing">
-    <a class="listing"
-       [routerLink]="['/propiedad', property.id]"
-       target="_blank">
-        <img class="listing-photo" [src]="property.imageUrl" [alt]="'Foto de ' + property.title" loading="lazy">
-        <h2 class="listing-title">{{property.title}}</h2>
-        <p class="listing-description">{{property.description}}</p>
-        <p class="listing-location">{{property.city}}, {{property.country}}</p>
-        <p class="listing-score">⭐ {{calculateAverageRating(property.rating)}}</p>
-        <p class="listing-price">${{ property.pricePerDay | formatPrice }}</p>
-    </a>
+<section class="listing" *ngIf="property">
+  <a class="listing"
+     [routerLink]="['/propiedad', property.id]"
+     target="_blank">
+     
+    <img class="listing-photo"
+         [src]="property.imageUrl || 'assets/default.jpg'"
+         [alt]="'Foto de ' + (property.title || 'sin título')"
+         loading="lazy">
+    
+    <h2 class="listing-title">{{ property.title || 'Sin título' }}</h2>
+    
+    <p class="listing-description">
+      {{ property.description || 'Sin descripción disponible' }}
+    </p>
+    
+    <p class="listing-location">
+      {{ property.city || 'Ciudad desconocida' }},
+      {{ property.country || 'País desconocido' }}
+    </p>
+    
+    <p class="listing-score">
+      ⭐ {{ calculateAverageRating(property.rating || []) }}
+    </p>
+    
+    <p class="listing-price">
+      ${{ property.pricePerDay | formatPrice }}
+    </p>
+  </a>
 </section>

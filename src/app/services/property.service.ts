@@ -7,7 +7,7 @@ import { Property } from '../interfaces/property';
   providedIn: 'root'
 })
 export class PropertyService {
-  private apiUrl = 'http://localhost:8080/api/properties/';
+  private apiUrl = 'http://localhost:8080/api/properties';
   private allProperties: Property[] = [];
   private propertiesSource = new BehaviorSubject<Property[]>([]);
   currentProperties = this.propertiesSource.asObservable();
@@ -16,7 +16,7 @@ export class PropertyService {
 
   /** Obtiene todas las propiedades desde la API y actualiza el estado interno */
   listarpropiedades(): Observable<Property[]> {
-    return this.http.get<Property[]>(this.apiUrl + 'search').pipe(
+    return this.http.get<Property[]>(this.apiUrl).pipe(
       tap(data => {
         this.allProperties = data;
         this.propertiesSource.next(data);
@@ -26,7 +26,7 @@ export class PropertyService {
 
   /** Obtiene una propiedad individual desde la API por ID */
   getPropertyById(id: number): Observable<Property> {
-    return this.http.get<Property>(this.apiUrl + id);
+    return this.http.get<Property>(`${this.apiUrl}/${id}`);
   }
 
   /** Normaliza texto para búsqueda */
@@ -38,6 +38,7 @@ export class PropertyService {
 
   /** Filtro local de propiedades ya cargadas */
   filterProperties(category: string, searchQuery: string): Property[] {
+    console.log('Filtrando en:', category, 'con búsqueda:', searchQuery);
     if (!searchQuery || !category) {
       return this.allProperties;
     }
@@ -69,10 +70,12 @@ export class PropertyService {
   }
 
   /** Aplica el filtro y actualiza el BehaviorSubject */
-  updateFilteredProperties(category: string, searchQuery: string) {
-    const filtered = this.filterProperties(category, searchQuery);
-    this.propertiesSource.next(filtered);
-  }
+updateFilteredProperties(category: string, searchQuery: string) {
+  console.log('Filtro aplicado:', { category, searchQuery });
+  const filtered = this.filterProperties(category, searchQuery);
+  console.log('Propiedades filtradas:', filtered);
+  this.propertiesSource.next(filtered);
+}
 
   /** Restablece el listado original */
   resetFilters() {
