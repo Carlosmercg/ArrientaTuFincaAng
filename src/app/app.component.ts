@@ -9,6 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { PropertyService } from './services/property.service';
 import { Property } from './interfaces/property';
+import { UserService } from './services/user.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   standalone: true,
@@ -27,7 +29,7 @@ import { Property } from './interfaces/property';
 export class AppComponent {
   title = 'homes';
   showUserMenu = false;
-  isLoggedIn = true; // Cambiar esto según el estado real de autenticación
+  isLoggedIn = false; // Cambiar esto según el estado real de autenticación
   showLoginModal: boolean = false;
   isLoginMode = true; // true para login, false para registro
   searchQuery: string = '';
@@ -40,9 +42,18 @@ export class AppComponent {
     { value: 'description', label: 'Por descripción' }
   ];
   // Datos del usuario (simulados)
-  userName = 'Nombre Usuario';
-  userEmail = 'usuario@example.com';
-  constructor(private router: Router, private propertyService: PropertyService) {}
+  userName = '';
+  userEmail = '';
+  constructor(private router: Router, private propertyService: PropertyService,private UserService: UserService, private authService: AuthService ) {}
+
+  ngOnInit() {
+ const user = this.authService.getCurrentUser();
+  if (user) {
+    this.isLoggedIn = true;
+    this.userName = user.name;
+    this.userEmail = user.email;
+  }
+}
   toggleUserMenu() {
     this.showUserMenu = !this.showUserMenu;
   }
@@ -58,18 +69,24 @@ export class AppComponent {
   handleCloseModal() {
     this.showLoginModal = false;
   }
-  handleLoginSuccess(userData: any) {
+handleLoginSuccess(userData: any) {
+  this.UserService.getUserByUsername(userData.username).subscribe(fullUser=> {
     this.isLoggedIn = true;
-    this.userName = userData.name;
-    this.userEmail = userData.email;
+    this.userName = fullUser.name;
+    this.userEmail = fullUser.email;
+    this.authService.setUser(userData); 
     this.closeLoginModal();
-  }
+    this.closeLoginModal();
+  });
+}
 
-  logout() {
-    this.isLoggedIn = false;
-    this.showUserMenu = false;
-    // Aquí también deberías limpiar cualquier dato de sesión
-  }
+logout() {
+   this.authService.logout(); 
+  this.isLoggedIn = false;
+  this.userName = '';
+  this.userEmail = '';
+  this.showUserMenu = false;
+}
   goToHome() {
     this.router.navigate(['/']);
   }

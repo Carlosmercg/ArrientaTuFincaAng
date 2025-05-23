@@ -54,11 +54,30 @@ export class LoginsigninComponent {
         }
       });
     } else {
-      // Registro (puedes implementar el llamado a tu API para registrar usuario aquí)
-      // Por ahora solo mostramos mensaje:
-      this.errorMessage = 'Funcionalidad de registro no implementada aún.';
-      // Ejemplo: llamar a servicio para registrar el usuario
-      // this.userService.registerUser(formData).subscribe(...)
+        const newUser: User = {
+      
+        username: formData.username,
+        name: formData.name,
+        lastName: formData.lastname,
+        email: formData.email,
+        password: formData.password,
+       
+      };
+
+      this.userService.createUser(newUser).subscribe({
+        next: (createdUser) => {
+          this.errorMessage = null;
+          this.loginSuccess.emit(createdUser);
+          this.closeLogin();
+        },
+        error: (err) => {
+          if (err.status === 409) {
+            this.errorMessage = 'El nombre de usuario ya está en uso.';
+          } else {
+            this.errorMessage = 'Error al crear el usuario.';
+          }
+        }
+      });
     }
   }
 }
