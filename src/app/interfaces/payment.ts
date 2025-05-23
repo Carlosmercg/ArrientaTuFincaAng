@@ -1,5 +1,5 @@
 export interface Payment {
-    id: number; // ID de la reserva
+    id?: number; // ID de la reserva
     ammount: number;
     paymentDate: Date;
     cardNumber: number; 

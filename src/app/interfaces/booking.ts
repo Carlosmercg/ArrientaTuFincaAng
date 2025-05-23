@@ -1,5 +1,5 @@
 export interface Booking {
-    id: number; // ID de la reserva
+    id?: number; // ID de la reserva
     propertyId: number;
     startDate: Date;
     endDate: Date; 
