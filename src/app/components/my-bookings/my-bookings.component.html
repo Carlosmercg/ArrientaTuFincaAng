@@ -7,7 +7,7 @@
       <p>Fecha: {{ booking.propertyId }}</p>
       <p>Hora: {{ booking.startDate }}</p>
       <p>Ubicación: {{ booking.endDate }}</p>
-      <button (click)="cancelBooking(booking.id)">Cancelar Reserva</button>
+      <button (click)="cancelBooking(booking.id!)">Cancelar Reserva</button>
     </div>
   </div>
   <ng-template #noBookingsTemplate>

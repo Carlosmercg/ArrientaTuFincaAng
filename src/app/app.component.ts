@@ -44,7 +44,10 @@ export class AppComponent {
   // Datos del usuario (simulados)
   userName = '';
   userEmail = '';
-  constructor(private router: Router, private propertyService: PropertyService,private UserService: UserService, private authService: AuthService ) {}
+  constructor(private router: Router, 
+    private propertyService: PropertyService,
+    private UserService: UserService, 
+    private authService: AuthService ) {}
 
   ngOnInit() {
  const user = this.authService.getCurrentUser();
@@ -92,6 +95,12 @@ logout() {
   }
   goToMyBookings() {
     this.router.navigate(['/mis-reservas']);
+  }
+  goToMyProfile() {
+    this.router.navigate(['/mi-perfil']);
+  }
+  goToCreateProperty() {
+    this.router.navigate(['/crear-propiedad']);
   }
   
   searchProperties() {

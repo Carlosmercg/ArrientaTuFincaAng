@@ -7,6 +7,9 @@ import { Property } from '../interfaces/property';
   providedIn: 'root'
 })
 export class PropertyService {
+   createProperty(property: Property): Observable<Property> {
+    return this.http.post<Property>(this.apiUrl, property);
+  }
   private apiUrl = 'http://localhost:8080/api/properties';
   private allProperties: Property[] = [];
   private propertiesSource = new BehaviorSubject<Property[]>([]);
