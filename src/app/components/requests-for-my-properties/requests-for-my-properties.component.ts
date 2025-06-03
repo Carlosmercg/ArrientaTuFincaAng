@@ -1,79 +1,88 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Booking } from '../../interfaces/booking';
+import { Property } from '../../interfaces/property';
+import { BookingService } from '../../services/booking.service';
+import { PropertyService } from '../../services/property.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-requests-for-my-properties',
-  imports: [CommonModule],
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './requests-for-my-properties.component.html',
   styleUrl: './requests-for-my-properties.component.css'
 })
 export class RequestsForMyPropertiesComponent implements OnInit {
-  bookings: Booking[] = []; 
-  properties: { [propertyId: number]: any } = {}; 
+  bookings: Booking[] = [];
+  properties: { [propertyId: number]: Property } = {};
+
+  constructor(
+    private bookingService: BookingService,
+    private propertyService: PropertyService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.properties[101] = { name: 'Apartamento Céntrico', address: 'Calle Falsa 123' };
-    this.properties[102] = { name: 'Casa de Playa', address: 'Avenida del Mar 456' };
-    this.createTestBooking();
-  }
-  // 
-  createTestBooking(): void {
-    const newBooking: Booking = {
-      id: this.bookings.length + 1, // Genera un ID simple para la prueba
-      propertyId: 101, // ID de una propiedad de prueba
-      tenantId: 501, // ID de un inquilino de prueba
-      startDate: '2025-07-01',
-      endDate: '2025-07-10',
-      totalPrice: 750.00,
-      status: 'Pendiente', // Estado de la reserva
-      state: 'Activa' // Estado interno o de gestión
-    };
-    this.bookings.push(newBooking);
-    console.log('Reserva de prueba añadida:', newBooking);
-
-    const anotherBooking: Booking = {
-      id: this.bookings.length + 1,
-      propertyId: 102,
-      tenantId: 502,
-      startDate: '2025-08-01',
-      endDate: '2025-08-15',
-      totalPrice: 1200.00,
-      status: 'Aceptada',
-      state: 'Confirmada'
-    };
-    this.bookings.push(anotherBooking);
-    console.log('Otra reserva de prueba añadida:', anotherBooking);
+    const user = this.authService.getCurrentUser();
+    if (user && user.id) {
+      this.loadUserPropertiesAndBookings(user.id);
+    }
   }
 
+  loadUserPropertiesAndBookings(userId: number): void {
+    this.propertyService.getPropertiesByLandlord(userId).subscribe({
+      next: (userProperties: Property[]) => {
+        const propertyIds = userProperties.map(p => p.id);
+        userProperties.forEach(p => this.properties[p.id!] = p);
+
+        this.bookingService.getAllBookings().subscribe({
+          next: (allBookings: Booking[]) => {
+            // Filtrar las reservas que corresponden a propiedades del usuario
+            this.bookings = allBookings.filter(b => propertyIds.includes(b.propertyId));
+          },
+          error: err => console.error('Error cargando bookings:', err)
+        });
+      },
+      error: err => console.error('Error cargando propiedades:', err)
+    });
+  }
 
   rejectBooking(bookingId: number | undefined): void {
-    if (bookingId === undefined) {
-      console.warn('No se puede rechazar la reserva: bookingId es undefined.');
-      return;
-    }
-    const bookingIndex = this.bookings.findIndex(b => b.id === bookingId);
-    if (bookingIndex !== -1) {
-      this.bookings[bookingIndex].status = 'Rechazada';
-      console.log(`Reserva ${bookingId} rechazada.`);
-    } else {
-      console.log(`Reserva con ID ${bookingId} no encontrada.`);
-    }
+  if (bookingId === undefined) {
+  console.error('ID de reserva no definido.');
+  return;
   }
-
+  this.bookingService.rejectBooking(bookingId).subscribe({
+  next: () => {
+  console.log(`Reserva con ID ${bookingId} rechazada.`);
+  // Actualiza el estado localmente
+  this.bookings = this.bookings.map(b =>
+  b.id === bookingId ? { ...b, state: 'REJECTED' } : b
+  );
+  },
+  error: (err) => {
+  console.error('Error al rechazar la reserva:', err);
+  alert('No se pudo rechazar la reserva. Intenta de nuevo.');
+  }
+  });
+  }
 
   acceptBooking(bookingId: number | undefined): void {
-    if (bookingId === undefined) {
-      console.warn('No se puede aceptar la reserva: bookingId es undefined.');
-      return;
-    }
-    const bookingIndex = this.bookings.findIndex(b => b.id === bookingId);
-    if (bookingIndex !== -1) {
-      this.bookings[bookingIndex].status = 'Aceptada';
-      console.log(`Reserva ${bookingId} aceptada.`);
-    } else {
-      console.log(`Reserva con ID ${bookingId} no encontrada.`);
-    }
+  if (bookingId === undefined) {
+  console.error('ID de reserva no definido.');
+  return;
   }
-}
+  this.bookingService.approvetBooking(bookingId).subscribe({
+      next: () => {
+  console.log(`Reserva con ID ${bookingId} aprobada.`);
+        // Actualiza el estado localmente sin volver a llamar al backend
+        this.bookings = this.bookings.map(b =>
+          b.id === bookingId ? { ...b, state: 'APPROVED' } : b
+        );
+      },
+  error: err => console.error('Error al aprobar la reserva:', err)
+  });
+  }
+
+  }

@@ -23,4 +23,16 @@ createBooking(booking: Booking): Observable<Booking> {
   return this.http.put<void>(`${this.apiUrl}/${bookingId}/cancel`, {});
 }
 
+    getAllBookings(): Observable<Booking[]> {
+    return this.http.get<Booking[]>(`${this.apiUrl}/landlord/all`);
+  }
+
+    approvetBooking(bookingId: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${bookingId}/approve`, {});
+}
+
+    rejectBooking(bookingId: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${bookingId}/reject`, {});
+}
+
 }

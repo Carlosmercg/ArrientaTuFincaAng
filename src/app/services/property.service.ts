@@ -30,6 +30,10 @@ export class PropertyService {
     return this.http.get<Property>(`${this.apiUrl}/${id}`);
   }
 
+  getPropertiesByLandlord(userId: number): Observable<Property[]> {
+  return this.http.get<Property[]>(`${this.apiUrl}/landlord/${userId}`);
+}
+
     createProperty(property: Property): Observable<Property> {
     return this.http.post<Property>(`${this.apiUrl}/create`, property);
   }
