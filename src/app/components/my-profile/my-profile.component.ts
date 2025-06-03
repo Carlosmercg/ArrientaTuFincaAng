@@ -11,8 +11,7 @@ import { User } from '../../interfaces/user';
   styleUrl: './my-profile.component.css'
 })
 export class MyProfileComponent {
-  // Aquí puedes agregar la lógica necesaria para el componente de perfil de usuario
-  userId: number = 0; // ID del usuario, si es necesario
+  userId: number = 0; 
   userName: string = ""; 
   userUsername: string = "";
   userLastName: string = "";

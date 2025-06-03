@@ -1,0 +1,34 @@
+<p>my-bookings works!</p>
+<div class="my-bookings-container">
+  <h2>Solicitudes a mis fincas</h2>
+
+  <div class="booking-list" *ngIf="bookings && bookings.length > 0; else noBookingsTemplate">
+    <div class="booking-item" *ngFor="let booking of bookings">
+      <h3>Reserva #{{ booking.id }}</h3>
+      
+      <p>Fecha de inicio: {{ booking.startDate | date: 'shortDate' }}</p>
+      <p>Fecha de fin: {{ booking.endDate | date: 'shortDate' }}</p>
+
+      <!-- Mostrar el nombre de la finca (propiedad) usando el objeto properties -->
+      <ng-container *ngIf="properties[booking.propertyId] as prop">
+        <p>Ubicación: {{ prop.title }}</p>
+      </ng-container>
+
+      <!-- Estado y proceso -->
+      <p>Estado: {{ booking.status }}</p>
+      <p>Proceso: {{ booking.state }}</p>
+
+      <!-- Mostrar botón solo si no está cancelada -->
+      <button *ngIf="booking.status !== 'CANCELLED'" (click)="rejectBooking(booking.id!)">
+        Rechazar reserva
+      </button>
+      <button id ="acceptBooking" *ngIf="booking.status !== 'CANCELLED'" (click)="acceptBooking(booking.id!)">
+        Aceptar reserva
+      </button>
+    </div>
+  </div>
+
+  <ng-template #noBookingsTemplate>
+    <p>No tienes solicitudes en este momento.</p>
+  </ng-template>
+</div>

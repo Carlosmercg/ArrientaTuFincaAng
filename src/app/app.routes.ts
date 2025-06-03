@@ -6,6 +6,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { MyBookingsComponent } from './components/my-bookings/my-bookings.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { CreatePropertyComponent } from './components/create-property/create-property.component';
+import { RequestsForMyPropertiesComponent } from './components/requests-for-my-properties/requests-for-my-properties.component';
 export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'propiedad/:id', component: PropertyDetailComponent },
@@ -13,5 +14,6 @@ export const routes: Routes = [
     { path: 'mis-reservas', component: MyBookingsComponent },
     { path: 'mi-perfil', component: MyProfileComponent},
     { path: 'crear-propiedad', component: CreatePropertyComponent },
-    { path: '**', component: HomeComponent } // Redirect to home for any unknown routes
+    { path: 'solicitudes-para-mis-propiedades', component: RequestsForMyPropertiesComponent },
+    { path: '**', component: HomeComponent } 
 ];

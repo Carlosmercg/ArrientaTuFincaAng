@@ -102,6 +102,9 @@ logout() {
   goToCreateProperty() {
     this.router.navigate(['/crear-propiedad']);
   }
+  goToRequestsForMyProperties() {
+    this.router.navigate(['/solicitudes-para-mis-propiedades']);
+  }
   
   searchProperties() {
     if (this.searchQuery.trim() || this.selectedCategory) {
