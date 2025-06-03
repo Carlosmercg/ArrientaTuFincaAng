@@ -1,13 +1,15 @@
 export interface Property {
     id?: number;
     description: string;
+    address: string; 
     title: string; 
     city: string; 
     country: string; 
     imageUrl: string; 
-    pricePerDay: number;
+    price: number;
     bathrooms: number;
     bedrooms: number;
     rating: number[];
+    landlordId: number;
 }
  

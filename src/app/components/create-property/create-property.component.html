@@ -18,6 +18,11 @@
         </div>
 
         <div class="form-group">
+            <label for="address">Dirección:</label>
+            <input type="text" id="address" name="address" [(ngModel)]="property.address" required>
+        </div>
+
+        <div class="form-group">
             <label for="country">País:</label>
             <input type="text" id="country" name="country" [(ngModel)]="property.country" required>
         </div>
@@ -29,7 +34,7 @@
 
         <div class="form-group">
             <label for="pricePerDay">Precio por Día ($):</label>
-            <input type="number" id="pricePerDay" name="pricePerDay" [(ngModel)]="property.pricePerDay" min="0" required>
+            <input type="number" id="pricePerDay" name="pricePerDay" [(ngModel)]="property.price" min="0" required>
         </div>
 
         <div class="form-group">

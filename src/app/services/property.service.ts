@@ -7,9 +7,7 @@ import { Property } from '../interfaces/property';
   providedIn: 'root'
 })
 export class PropertyService {
-   createProperty(property: Property): Observable<Property> {
-    return this.http.post<Property>(this.apiUrl, property);
-  }
+
   private apiUrl = 'http://localhost:8080/api/properties';
   private allProperties: Property[] = [];
   private propertiesSource = new BehaviorSubject<Property[]>([]);
@@ -30,6 +28,10 @@ export class PropertyService {
   /** Obtiene una propiedad individual desde la API por ID */
   getPropertyById(id: number): Observable<Property> {
     return this.http.get<Property>(`${this.apiUrl}/${id}`);
+  }
+
+    createProperty(property: Property): Observable<Property> {
+    return this.http.post<Property>(`${this.apiUrl}/create`, property);
   }
 
   /** Normaliza texto para búsqueda */
