@@ -1,8 +1,10 @@
 export interface Booking {
     id?: number; // ID de la reserva
     propertyId: number;
-    startDate: Date;
-    endDate: Date; 
+    tenantId: number;
+    startDate: string;  
+    endDate: string;   
     totalPrice: number; 
     status: string; 
+    state: string; 
 }

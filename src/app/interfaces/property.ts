@@ -10,3 +10,4 @@ export interface Property {
     bedrooms: number;
     rating: number[];
 }
+ 
