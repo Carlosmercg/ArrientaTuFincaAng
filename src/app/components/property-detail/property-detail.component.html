@@ -1,7 +1,7 @@
 <h1 class="title-padding">{{property.title}}</h1>
 <div class="property-detail-container">
   <div class="property-images">
-    <img class="listing-photo" [src]="property.imageUrl" [alt]="'Foto de ' + property.title" loading="lazy">
+    <img class="listing-photo" [src]="property.photos" [alt]="'Foto de ' + property.title" loading="lazy">
   </div>
   
   <div class="property-info">
@@ -32,16 +32,32 @@
     <button (click)="onReserve()" class="btn btn-primary">Reservar ahora</button>
   </div>
 </div>
-<div class ="property-comments">
+<div class="property-comments">
   <h2>Comentar</h2>
-  <textarea placeholder="Escribe tu comentario aquí" class="comments-input"></textarea>
-  <br>
-  <app-star-rating [maxRating]="5" [rating]="property.score" (ratingChange)=" ($event)"></app-star-rating>
-  <br>  
-  <button>Comentar</button>
-  <h2>Comentarios</h2>
-  <div class="comments-container">
-    <p>Aún no hay comentarios para esta publicación</p>
-  </div>
 
+  <!-- Comentario -->
+  <textarea
+    [(ngModel)]="ratingData.comment"
+    placeholder="Escribe tu comentario aquí"
+    class="comments-input">
+  </textarea>
+
+  <!-- Estrellas -->
+  <app-star-rating
+      [maxRating]="5"
+      [rating]="ratingData.rating"
+      (ratingChange)="onRatingChange($event)">
+  </app-star-rating>
+
+  <!-- Botón enviar -->
+  <button (click)="onSubmitComment()">Comentar</button>
+
+  <!-- Lista de comentarios (ejemplo) -->
+  <h2>Comentarios</h2>
+<div class="comments-container">
+  <p *ngIf="!commentsList.length">Aún no hay comentarios para esta publicación</p>
+  <div *ngFor="let comment of commentsList">
+    <p>{{ comment }}</p>
+    <hr />
+  </div>
 </div>

@@ -33,6 +33,10 @@ export class AuthService {
     localStorage.setItem(this.userKey, JSON.stringify(user));
   }
 
+  setCurrentUser(user: User) {
+  localStorage.setItem('user', JSON.stringify(user));
+}
+
   /** Limpia el usuario al cerrar sesión */
   logout(): void {
     this.userSubject.next(null);

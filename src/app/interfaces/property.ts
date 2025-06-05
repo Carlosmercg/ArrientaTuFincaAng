@@ -5,7 +5,7 @@ export interface Property {
     title: string; 
     city: string; 
     country: string; 
-    imageUrl: string; 
+    photos: string; 
     price: number;
     bathrooms: number;
     bedrooms: number;

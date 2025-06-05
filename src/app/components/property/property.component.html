@@ -4,7 +4,7 @@
      target="_blank">
      
     <img class="listing-photo"
-         [src]="property.imageUrl || 'assets/default.jpg'"
+         [src]="property.photos || 'assets/default.jpg'"
          [alt]="'Foto de ' + (property.title || 'sin título')"
          loading="lazy">
     

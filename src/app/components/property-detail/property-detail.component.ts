@@ -13,6 +13,8 @@ import { Property } from '../../interfaces/property';
 import { BookingService } from '../../services/booking.service';
 import { AuthService } from '../../services/auth.service';
 import { Booking } from '../../interfaces/booking';
+import { RatingService } from '../../services/rating.service';
+import { Rating } from '../../interfaces/rating';
 
 @Component({
   selector: 'app-property-detail',
@@ -32,24 +34,77 @@ constructor(
   private propertyService: PropertyService,
   private bookingService: BookingService,
   private authService: AuthService,
-  private router: Router
+  private router: Router,
+  private ratingService: RatingService // nuevo
 ) {}
 
-  ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      const propertyId = parseInt(id, 10);
-      this.propertyService.getPropertyById(propertyId)
-      .subscribe(
-        property => this.property = property
-      );
-    }
+  ratingData: Rating = {
+    propertyId: 0,        
+    rating:   0,
+    comment:  ''
+  };
+
+  commentsList: string[] = [];
+
+ngOnInit() {
+  const id = this.route.snapshot.paramMap.get('id');
+  if (id) {
+    const propertyId = parseInt(id, 10);
+    this.ratingData.propertyId = propertyId;
+
+    this.propertyService.getPropertyById(propertyId).subscribe(property => {
+      this.property = property;
+
+      this.ratingService.getRatingsByPropertyId(propertyId).subscribe(ratings => {
+        // Extraer solo los números 'rating' de cada objeto Rating
+        this.property.rating = ratings.map(r => r.rating);
+
+         this.commentsList = ratings
+          .filter(r => r.comment && r.comment.trim() !== '')
+          .map(r => r.comment);
+      });
+    });
   }
+}
   onRatingChange(newRating: number): void {
-    this.property.score = newRating;
-    console.log('Nueva puntuación:', this.property.score);
-    // Aquí puedes enviar la nueva puntuación al servidor si es necesario
+    this.ratingData.rating = newRating;
   }
+
+onSubmitComment(): void {
+  if (!this.authService.getCurrentUser()) {
+    alert('Debes iniciar sesión para comentar.');
+    return;
+  }
+  if (!this.ratingData.rating) {
+    alert('Selecciona una puntuación antes de comentar.');
+    return;
+  }
+
+  // Asegurarse de que propertyId esté correcto justo antes de enviar
+  if (!this.property?.id) {
+    alert('No se pudo determinar la propiedad para la valoración.');
+    return;
+  }
+
+  this.ratingData.propertyId = this.property.id;
+
+  this.ratingService.submitRating(this.ratingData).subscribe({
+    next: res  => {
+      console.log('Comentario guardado', res);
+      alert('¡Gracias por tu valoración!');
+      // Opcional: limpiar comentario y rating
+      this.ratingData.comment = '';
+      this.ratingData.rating = 0;
+    },
+    error: err => {
+      console.error(err);
+      alert('No se pudo guardar el comentario.');
+    }
+  });
+}
+
+
+
 
 onReserve(): void {
   const propertyId = this.property?.id;
