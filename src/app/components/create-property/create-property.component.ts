@@ -57,10 +57,15 @@ createProperty(): void {
     return;
   }
 
+  if (!this.property.photos || this.property.photos.trim() === '') {
+    this.property.photos = 'assets/images/house.jpg';
+  }
+
   // Crear una copia del objeto con el landlordId incluido
   const propertyToSend: Property = {
     ...this.property,
     landlordId: user.id // 👈 asignamos el id del usuario autenticado
+    
   };
 
   this.propertyService.createProperty(propertyToSend).subscribe({
