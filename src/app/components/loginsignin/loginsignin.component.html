@@ -1,0 +1,55 @@
+<div class="login-form">
+  <div class="login-header">
+    <button class="close-button" (click)="closeLogin()">×</button>
+    <h1 *ngIf="isLoginMode; else registerTitle">Login</h1>
+    <ng-template #registerTitle><h1>Register</h1></ng-template>
+  </div>
+  
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input 
+        type="text" 
+        id="username" 
+        name="username" 
+        placeholder="Username" 
+        ngModel
+        required
+      >
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input 
+        type="password" 
+        id="password" 
+        name="password" 
+        placeholder="Password" 
+        ngModel
+        required
+      >
+    </div>
+
+    <!-- Campos adicionales para registro -->
+    <div *ngIf="!isLoginMode">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Name" ngModel required>
+      </div>
+      <div class="form-group">
+        <label for="lastname">Lastname</label>
+        <input type="text" id="lastname" name="lastname" placeholder="Lastname" ngModel required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Email" ngModel required>
+      </div>
+    </div>
+
+    <button type="submit">{{ isLoginMode ? 'Login' : 'Sign In' }}</button>
+    <a href="#" (click)="toggleMode(); $event.preventDefault()">
+      {{ isLoginMode ? 'Register' : 'Already have an account?' }}
+    </a>
+  </form>
+
+  <p *ngIf="errorMessage" style="color:red">{{ errorMessage }}</p>
+</div>

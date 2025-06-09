@@ -1,0 +1,15 @@
+<div class="rating">
+  @for (star of stars; let i = $index; track $index) {
+    <span
+      class="star"
+      [class.active]="i + 1 <= rating" 
+      [class.hover]="i + 1 <= hoverRating()"
+      (click)="rate(i + 1)"
+      (mouseover)="hover(i + 1)"
+      (mouseout)="resetHover()"
+    >
+      &#9733;
+    </span>
+  }
+  <input type="hidden" [value]="rating" name="rating">
+</div>

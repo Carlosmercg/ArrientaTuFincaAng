@@ -1,0 +1,109 @@
+/* Estilos generales del contenedor del formulario */
+.property-form-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px; /* Ancho máximo para el formulario */
+    margin: 40px auto; /* Centra el formulario en la página */
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+/* Estilo para cada grupo de label e input/textarea */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+input[type="text"],
+input[type="url"],
+input[type="number"],
+textarea {
+    width: calc(100% - 24px); /* Ancho completo menos padding */
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box; /* Incluye el padding en el ancho */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Efecto de resplandor al enfocar */
+    outline: none;
+}
+
+textarea {
+    resize: vertical; /* Permite redimensionar verticalmente */
+    min-height: 100px; /* Altura mínima para la descripción */
+}
+
+/* Grupo de botones */
+.button-group {
+    text-align: center;
+    margin-top: 30px;
+}
+
+button {
+    background-color: #28a745; /* Un verde para "Crear" */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 0 10px;
+}
+
+button[type="reset"] {
+    background-color: #6c757d; /* Gris para "Restablecer" */
+}
+
+button:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+button[type="reset"]:hover {
+    background-color: #5a6268;
+}
+
+/* Responsive design básico */
+@media (max-width: 768px) {
+    .property-form-container {
+        margin: 20px;
+        padding: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+    }
+    button {
+        width: calc(100% - 20px);
+        margin-bottom: 15px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}

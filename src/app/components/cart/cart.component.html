@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pago de Propiedad</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container payment-container">
+    @if (!paymentSuccess) {
+      <h1 class="h3 mb-5 payment-header">Payment</h1>
+    <div class="row">
+      <!-- Sección izquierda - Método de pago -->
+      <div class="col-lg-8">
+        <div class="payment-method">
+          <h2 class="payment-method-title">Método de Pago</h2>
+          
+          <!-- Tarjeta de crédito -->
+          <div class="credit-card-form">
+            <div class="mb-3">
+              <label class="form-label">Número de Tarjeta</label>
+              <input type="text" class="form-control" placeholder="1234 5678 9012 3456">
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Nombre en la tarjeta</label>
+                  <input type="text" class="form-control" placeholder="Nombre completo">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="mb-3">
+                  <label class="form-label">Fecha exp.</label>
+                  <input type="text" class="form-control" placeholder="MM/AA">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="mb-3">
+                  <label class="form-label">CVV</label>
+                  <input type="password" class="form-control" placeholder="123">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección derecha - Resumen de propiedad -->
+      <div class="col-lg-4">
+        <div class="property-summary">
+          <div class="summary-content">
+            <h3 class="summary-title">Resumen de la Propiedad</h3>
+            
+            <div class="property-image">
+              <img src={{property.imageUrl}} alt="Imagen de la propiedad" class="img-fluid">
+            </div>
+            
+            <div class="property-details">
+              <h4 class="property-name">{{property.name}}</h4>
+              <p class="property-location"><i class="bi bi-geo-alt"></i> {{property.city}}, {{property.country}}</p>
+              
+              <div class="price-details">
+                <div class="detail-row">
+                  <span>Precio:</span>
+                  <span>${{property.price | formatPrice}} COP</span>
+                </div>
+                <hr>
+                <div class="detail-row total">
+                  <span>TOTAL:</span>
+                  <span class="total-price">${{property.price | formatPrice}} COP</span>
+                </div>
+              </div>
+            </div>
+            
+            <button class="btn btn-primary w-100 pay-button" (click)="onPaymentSuccess()">Confirmar y Pagar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    } 
+    @else {
+      <div class="row pt-8">
+        <div class="col-lg-6">
+          <div class="payment-success">
+            <p> AAA</p>
+            <p> AAA</p>
+            <h2 class="payment-success-title">Pago exitoso</h2>
+            <p class="payment-success-text">Gracias por tu compra! Recibirás un correo de confirmación en unos minutos.</p>
+            <button class="btn btn-primary w-100 pay-button" (click)="backToHome()">Volver al Inicio</button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
